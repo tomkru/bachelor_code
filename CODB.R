@@ -76,5 +76,5 @@ CODB.mean <- function(listK, data, alpha, beta) {
   outlier.scores$outlier.scores <- NULL
   outlier.score <- rowMeans(outlier.scores)
   outlier.score <- cbind.data.frame(outlier.score, data)
-  View(outlier.score)
+  return(outlier.score)
 }
