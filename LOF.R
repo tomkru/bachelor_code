@@ -1,6 +1,5 @@
 lof.ensemble.mean <- function(listk, data, name = "") {
-  data <- read.csv(file = data, header = TRUE, sep = ",")
-  data <- as.data.frame(lapply(data[, -c(1, ncol(data))], normalize))
+  data <- read.csv(file = data, header = FALSE, sep = ",")
   outlier.scores <- vector(mode = "numeric", length = nrow(data))
   for(i in listk) {
     score <- lofactor(data, k=i)
@@ -9,10 +8,6 @@ lof.ensemble.mean <- function(listk, data, name = "") {
   outlier.scores$outlier.scores <- NULL
   outlier.score <- rowMeans(outlier.scores)
   outlier.score <- cbind.data.frame(outlier.score, data)
-  write.table(outlier.score[,1], file = paste("LOF-dataresult-", name), append = FALSE, sep = ",", row.names = FALSE, col.names = FALSE)
+  write.table(outlier.score, file = paste("LOF-dataresult-", name, sep=""), append = FALSE, sep = ",", row.names = FALSE, col.names = FALSE)
   return(outlier.score)
-}
-
-normalize <- function(x) {
-  return ((x - min(x)) / (max(x) - min(x)))
 }
